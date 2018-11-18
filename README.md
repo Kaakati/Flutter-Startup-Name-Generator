@@ -1,4 +1,4 @@
-# apptutorialone
+# Startup Name Generator / Tutorial by Flutter Docs
 
 A new Flutter project.
 
