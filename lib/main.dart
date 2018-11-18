@@ -20,7 +20,12 @@ class RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Startup Name Generator')),
+      appBar: AppBar(
+        title: Text('Startup Name Generator'),
+        actions: <Widget>[
+          new IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved),
+        ],
+      ),
       body: _buildSugesstions(),
     );
   }
@@ -61,6 +66,33 @@ class RandomWordsState extends State<RandomWords> {
           }
         });
       },
+    );
+  }
+
+  void _pushSaved() {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          final Iterable<ListTile> tiles = _saved.map(
+            (WordPair pair) {
+              return new ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont),
+              );
+            }
+          );
+          final List<Widget> divided = ListTile
+          .divideTiles(context: context, tiles: tiles).toList();
+
+          return new Scaffold(
+            appBar: new AppBar(
+              title: const Text('Saved Sugesstions'),
+            ),
+            body: new ListView(children: divided),
+          );
+        }
+      )
     );
   }
 }
